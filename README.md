@@ -21,3 +21,14 @@ sh kafka-topics.sh --bootstrap-server localhost:9092 --create  --replication-fac
 sh kafka-topics.sh --bootstrap-server localhost:9092 --create  --replication-factor 1 --partitions 5 --topic partitioned
 sh kafka-topics.sh --bootstrap-server localhost:9092 --create  --replication-factor 1 --partitions 1 --topic filtered
 sh kafka-topics.sh --bootstrap-server localhost:9092 --create  --replication-factor 1 --partitions 1 --topic greeting
+
+
+
+sh kafka-topics.sh --describe --topic codingkiddo --bootstrap-server localhost:9092
+sh kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic codingkiddo --from-beginning
+
+
+
+
+
+sh kafka-topics.sh --describe --topic partitioned --bootstrap-server localhost:9092

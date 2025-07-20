@@ -24,6 +24,14 @@ public class KafkaApplication {
 		MessageProducer producer = context.getBean(MessageProducer.class);
         MessageListener listener = context.getBean(MessageListener.class);
         
+        /*
+         * Sending a Hello World message to topic 'codingkiddo'. 
+         * Must be received by both listeners with group foo
+         * and bar with containerFactory fooKafkaListenerContainerFactory
+         * and barKafkaListenerContainerFactory respectively.
+         * It will also be received by the listener with
+         * headersKafkaListenerContainerFactory as container factory.
+         */
         producer.sendMessage("Hello, World!");
         listener.latch.await(10, TimeUnit.SECONDS);
         
@@ -106,5 +114,10 @@ public class KafkaApplication {
             latch.countDown();
         }
 
+        @KafkaListener(topics = "${message.topic.name}", groupId = "bar", containerFactory = "barKafkaListenerContainerFactory")
+        public void listenGroupBar(String message) {
+        	System.out.println("########## -----------> Received Message in group 'bar': " + message);
+            latch.countDown();
+        }
 	}
 }
